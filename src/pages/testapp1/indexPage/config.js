@@ -1,11 +1,21 @@
 export default function (vm) {
   return {
+    mock: true,
     style: {},
     class: '',
     modals: [
       {
         name: 'modal1',
-        component: "test",
+        component: "index_fragment_formula",
+        options: {},
+        title: '普通的Modal对话框标题',
+        ok: () => {
+          alert()
+        }
+      },
+      {
+        name: 'modal2',
+        component: "studentInfoPage",
         options: {},
         title: '普通的Modal对话框标题',
         ok: () => {
@@ -13,7 +23,9 @@ export default function (vm) {
         }
       }
     ],
-    layout: [
+    layout: [{
+      cols: [{component: 'index_fragment_keyboard', style: {width: '600px'}}]
+    },
       {
         cols: [{
           name: 'topnav',
@@ -22,7 +34,7 @@ export default function (vm) {
           style: {'border-bottom': '1px solid #e3e8ee', 'padding-bottom': '16px'}
         }]
       },
-      {cols: [{content: '批次：2017年自主单招', style: {'margin-bottom': '16px'}}]},
+      {cols: [{span: 12, content: '批次：2017年自主单招', style: {'margin-bottom': '16px'}}]},
       {
         cols: [{
           component: 'index_fragment_search', options: {

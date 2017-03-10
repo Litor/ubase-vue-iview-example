@@ -1,5 +1,5 @@
 <template>
-  <div>{{$t('index.title')}}
+  <div>
     <i-container :config="pages" v-ref:ipage></i-container>
   </div>
 </template>
