@@ -16,6 +16,15 @@
               }
             }]
           }, {
+              style:{'margin':'16px 0'},
+            cols: [
+              {
+                component: 'common_fragment_text',
+                options: {content: '基本信息'},
+                style: {'font-weight': 700}
+              }
+            ]
+          }, {
             cols: [
               {
                 component: 'studentInfo_fragment_baseInfo'

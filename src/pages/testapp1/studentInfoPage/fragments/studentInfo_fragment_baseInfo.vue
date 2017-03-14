@@ -140,7 +140,6 @@
   .readable-table {
     border-right: 1px solid rgba(216, 220, 240, 1);
     border-bottom: 1px solid rgba(216, 220, 240, 1);
-    margin: 16px;
     background-color: #F7F8FC;
 
     .item {

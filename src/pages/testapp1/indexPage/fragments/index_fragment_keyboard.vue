@@ -2,7 +2,7 @@
   <div>
     <div class="main">
       <Tag class="tag" v-for="item in line1" @click="__select(item)">{{item.name}}</Tag>
-      <Tag class="course-tag hui" :class="{hui:item.hui}" v-for="item in options.list" @click="__select(item)">
+      <Tag class="course-tag" :class="{hui:item.hui}" v-for="item in options.list" @click="__select(item)">
         {{item.name}}
       </Tag>
     </div>
@@ -38,7 +38,7 @@
   function mockData() {
     return {
       options: {
-        list: [{name: '语文', type: 1, id: '01101'}]
+        list: [{name: '语文', type: 1, id: '01101'},{name: '数学', type: 1, id: '01301', hui:true}]
       }
     }
   }
