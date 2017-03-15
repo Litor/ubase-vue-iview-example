@@ -2,7 +2,7 @@
   <div>
     <div class="ivu-card ivu-card-bordered ivu-card-dis-hover">
       <Row>
-        <i-col span="6">普通资格投档总成绩：</i-col>
+        <i-col span="6" class="tip">普通资格投档总成绩=</i-col>
         <i-col span="18">
           <Tag v-for="item in formulas" :class="{operator: item.type==0}">{{item.name}}</Tag>
         </i-col>
@@ -12,7 +12,9 @@
   </div>
 </template>
 <script>
+  import fragmentMixin from 'iview-biz/mixins/fragmentMixin'
   export default {
+    mixins: [fragmentMixin],
     data: function () {
       return {
         formulas: [{name: '数学', type: 1, id: '22'}, {name: '+', type: 0, id: '+'}, {
@@ -40,6 +42,10 @@
         })
 
         return res
+      },
+
+      set(formula){
+          this.formulas = formula
       }
     }
   }
@@ -55,8 +61,14 @@
     padding-top: 0px;
   }
 
+  .tip{
+    font-size: 12px;
+    height: 26px;
+    line-height: 26px;
+  }
+
   .ivu-card{
-    height: 80px;
+    min-height: 80px;
     position: relative;
   }
 

@@ -12,6 +12,10 @@
       return {
         pages: this.$merge(layout, index(this))
       }
+    },
+
+    ready(){
+        this.$getSection('alertSection').hidden = true
     }
   }
 </script>

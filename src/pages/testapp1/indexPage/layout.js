@@ -4,14 +4,12 @@ export default {
   class: '',
   modals: [
     {
+      type:'',
       name: 'modal1',
-      component: "index_fragment_formula",
+      component: "common_fragment_nav",
     }
   ],
   rows:[
-    {
-      cols: [{component: 'indexScoreCollectionSection'}]
-    },
     {
       cols: [{
         name: 'topnav',
@@ -19,7 +17,7 @@ export default {
         style: {'border-bottom': '1px solid #e3e8ee', 'padding-bottom': '16px'}
       }]
     },
-    {cols: [{span: 12, content: '批次：2017年自主单招', style: {'margin-bottom': '16px'}}]},
+    {cols: [{span: 12, name:'testtt',content: `<i-button type="info" @click="$emit('on-tt')">信息按钮</i-button>`, style: {'margin-bottom': '16px'}}]},
     {
       cols: [{
         name: 'search',

@@ -3,7 +3,9 @@ export default  function (vm) {
     topnav: {navigates: [{title: '特殊考生录取'}]},
 
     modal1: {
-      $title: '普通的Modal对话框标题'
+      $title: '普通的Modal对话框标题',
+      $loading:true,
+      $header:`<i-button type="info" @click="$emit('$on-ok')">信息按钮</i-button>`,
     },
 
     table: {
@@ -94,6 +96,11 @@ export default  function (vm) {
   }
 
   var events = {
+    testtt:{
+      'on-tt':function () {
+        console.log(vm.getSection('testtt'))
+      }
+    },
     button: {
       'on-test': () => {
         console.log(vm.$getSection('button'))

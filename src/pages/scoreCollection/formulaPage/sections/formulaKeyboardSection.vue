@@ -38,7 +38,7 @@
   function mockData() {
     return {
       options: {
-        list: [{name: '语文', type: 1, id: '01101'},{name: '数学', type: 1, id: '01301', hui:true}]
+        list: [{name: '语文', type: 1, id: '01101'},{name: '数学', type: 1, id: '01301', hui:true},{name: '语文', type: 1, id: '01101'},{name: '数学', type: 1, id: '01301', hui:true},{name: '语文', type: 1, id: '01101'},{name: '数学', type: 1, id: '01301', hui:true}]
       }
     }
   }
@@ -46,6 +46,9 @@
 <style scoped lang="less" rel="stylesheet/less">
   .main {
     background-color: #eee;
+    padding-left: 6px;
+    padding-top: 6px;
+    padding-bottom: 6px;
 
     .tag {
       margin-right: 6px;
@@ -59,7 +62,7 @@
       height: 26px;
       line-height: 26px;
       text-align: center;
-      width: 129px;
+      width: 131px;
       position: relative;
 
       &.hui:before {

@@ -12,6 +12,10 @@
       return {
         pages: this.$merge(layout, index(this))
       }
+    },
+
+    created(){
+
     }
   }
 </script>
