@@ -1,7 +1,7 @@
 export default  function (vm) {
   var options = {
     formulaPage:{
-      $width:583,
+      $width:616,
       $title:'编辑计算公式',
     },
 
