@@ -2,17 +2,8 @@
   <div>
     <Row v-for="(index1, row) in rows" :class="row.class" :style="row.style" v-show="!row.hidden">
       <i-col :span="col.span" v-for="(index2, col) in row.cols" v-show="!col.hidden"
-             @click="select(col)">
-        <div :style="col.style" class="designer-col {{col == ps.selectedSection?'designer-col-selected':''}}">
-          <div class="item-del">
-            <Icon type="ios-arrow-up" @click="up(rows, index1)"></Icon>
-            &nbsp;
-            <Icon type="ios-arrow-down" @click="down(rows, index1)"></Icon>
-            &nbsp;
-            <Icon type="plus-round" @click="addCol(row.cols)"></Icon>
-            &nbsp;
-            <Icon type="android-delete" @click="del(row.cols, index2)"></Icon>
-          </div>
+             @click="select(col, rows, index1, row.cols, index2)">
+        <div :style="col.style" class="designer-col {{col == selectedSection.currentCol?'designer-col-selected':''}}">
           <div v-if="col.component">
             <component :is="col.component" class="{{col.name?('comp-name-'+col.name):''}}" :mock="mock"></component>
           </div>
@@ -21,12 +12,13 @@
                                :content="col.content"></content-component>
           </div>
           <div v-if="col.rows">
-            <container-layout :rows="col.rows" :mock="mock"></container-layout>
+            <container-layout :rows="col.rows" :mock="mock" @on-select="select" :current-col.sync="currentCol"></container-layout>
           </div>
           <div v-if="!col.content &&　!col.component && !col.rows">
             <div style="font-size:14px;text-align:center;height:36px;line-height:36px;font-weight: 400;">空</div>
           </div>
         </div>
+        <div class="mask"></div>
       </i-col>
     </Row>
   </div>
@@ -36,18 +28,13 @@
 
   export default {
     components: {contentComponent},
-    props: {rows: Array, mock: {type: Boolean, default: false}},
+    props: {rows: Array, mock: {type: Boolean, default: false}, selectedSection:Object},
     name: 'containerLayout',
 
-    computed: {
-      ps(){
-        return this.$store.state.index
-      },
-    },
-
     methods: {
-      select(col){
-        Ubase.invoke('defaultPage.selectSection', col)
+      select(col, rows, index1, cols, index2){
+        this.selectedSection = {currentCol: col, rows: rows, rowIndex: index1, cols: cols, colIndex: index2}
+        this.$emit('on-select', col, rows, index1, cols, index2)
       },
 
       del(cols, index){
@@ -89,28 +76,16 @@
     position: relative;
   }
 
-  .designer-col:hover {
-    border: 1px dashed #5cadff;
-  }
-
-  .designer-col-selected {
-    border: 1px dashed #5cadff;
-  }
-
-  .item-del {
+  .designer-col + .mask{
+    background-color: rgba(0,0,0, 0.1);
+    height: 100%;
     position: absolute;
-    right: 8px;
-    top: 8px;
-    z-index: 10000;
-    font-size: 18px;
+    width: 100%;
     display: none;
+    top:0;
   }
 
-  .item-del > i {
-    cursor: pointer;
-  }
-
-  .designer-col:hover .item-del {
+  .designer-col-selected + .mask {
     display: block;
   }
 </style>

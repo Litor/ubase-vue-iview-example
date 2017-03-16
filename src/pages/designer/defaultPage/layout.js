@@ -1,11 +1,17 @@
 export default {
   //mock: true,
-  style: {'padding': '8px'},
+  style: {'padding': '0 8px 0'},
   class: '',
-  modals: [{name:'abc',component:'designAreaSection'}],
-  rows: [
+  modals: [{name:'layoutReviewSection',component:'layoutReviewSection'}],
+  rows: [{
+    cols:[{
+      style:{'padding-bottom':'8px'},
+      name:'topMenuSection',
+      component:'topMenuSection'
+    }]
+  },
     {
-      style:{'height':'100%','border':'1px solid #d7dde4'},
+      style:{'height':'calc(100% - 94px)','border':'1px solid #d7dde4'},
       cols: [{
         style:{'border-right':'1px solid #d7dde4', 'height':'100%','overflow-y':'scroll'},
         span:19,
@@ -15,7 +21,7 @@ export default {
         span:5,
         name:'attributeSection',
         component:'attributeSection',
-        style:{'padding':'0 4px'},
+        style:{'padding':'0 4px','height':'100%','overflow-y':'scroll'},
         options:{}
       }]
     }

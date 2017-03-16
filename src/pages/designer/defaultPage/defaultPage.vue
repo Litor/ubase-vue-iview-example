@@ -20,24 +20,24 @@
       },
     },
 
-    methods:{
-      selectSection(col){
-          this.$getInstance('attributeSection').options = col
-           this.ps.selectedSection = col
+    methods: {
+      selectSection(col, rows, index1, cols, index2){
+        this.$getInstance('attributeSection').options = col
+        this.ps.selectedSection = {currentCol: col, rows: rows, rowIndex: index1, cols: cols, colIndex: index2}
       },
 
       test(){
-          console.log(this.pages)
+        console.log(this.pages)
       }
     }
   }
 </script>
 <style>
-  html, body, body>main{
+  html, body, body > main {
     height: 100%;
   }
 
-  body>main>div, body>main>div>div, body>main>div>div>div:first-child{
+  body > main > div, body > main > div > div, body > main > div > div > div:first-child {
     height: 100%;
   }
 </style>

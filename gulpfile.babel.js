@@ -17,5 +17,5 @@ ubase({
   metaInfoUrl: 'http://res.wisedu.com/WeCloud/emap-meta/manage-apps/jcsj-apps/',
 
   // mock server代理
-  proxy: [{ source: '/wec-devops-tenant', target: 'http://172.16.7.21:31314' }]
+  proxy: [{ source: '/ir-mngt', target: 'http://172.16.7.26:8089' }]
 });
