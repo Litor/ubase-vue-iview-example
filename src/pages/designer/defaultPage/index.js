@@ -2,7 +2,7 @@ export default  function (vm) {
   var options = {
     layoutReviewSection:{
       $title:'查看布局文件',
-      layoutSource:'ddddd'
+      layoutSource:''
     },
     attributeSection: {
       currentCol: {},

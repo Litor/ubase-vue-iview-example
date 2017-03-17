@@ -21,7 +21,11 @@
               {span: 5, class: 'item', content: '男'},
               {span: 3, content: '<span style="color:red">*</span> 民族', class: 'item label'},
               {
-                span: 5, class: 'item', component: 'test', options: {p1: 43, p4: 14}
+                span: 5, class: 'item', component: 'test', options: {p1: 43, p4: 14}, event: {
+                'on-test': function () {
+                  alert(33)
+                }
+              }
               }
             ]
           }, {

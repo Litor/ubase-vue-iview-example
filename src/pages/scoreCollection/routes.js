@@ -1,4 +1,4 @@
-import defaultPage from './default/defaultPage.vue'
+import defaultPage from './pages/default/defaultPage.vue'
 
 export default {
   '/': {
