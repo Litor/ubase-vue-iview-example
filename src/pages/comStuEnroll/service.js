@@ -3,12 +3,10 @@ let apiBaseName = 'comStuEnroll';
 
 export default {
   api: {
-    demo: `/${apiRootPath}/${apiBaseName}/demo`
+    getStuSignupInfo:`/${apiRootPath}/${apiBaseName}/getStuSignupInfo`
   },
 
-  demo(params) {
-    return Utils.post(this.api.demo, params).then(function(res) {
-      return res.datas;
-    });
+  post(api, params){
+    return Utils.post(this.api[api], params)
   }
 };

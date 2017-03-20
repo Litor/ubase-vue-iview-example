@@ -8,9 +8,7 @@
         </i-col>
         <i-col span="4" class="search-item label">单招类别：</i-col>
         <i-col span="4" class="search-item">
-          <i-select :model.sync="model1" query-mode="server1" filterable clearable>
-
-          </i-select>
+          <sync-select url="/ir-mngt/code/getCategories"></sync-select>
         </i-col>
         <i-col span="4" class="search-item label">报考科类：</i-col>
         <i-col span="4" class="search-item">
@@ -66,9 +64,11 @@
   </div>
 </template>
 <script>
+  import syncSelect from 'iview-biz/components/sync-select/syncSelect.vue'
   import fragmentMixin from 'iview-biz/mixins/fragmentMixin'
   export default {
     mixins:[fragmentMixin],
+    components:{syncSelect}
   }
 </script>
 <style scoped>

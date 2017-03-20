@@ -19,35 +19,38 @@
           },
           {
             title: '专业代码',
-            key: 'name'
+            key: 'majorSymbol'
           },
           {
             title: '专业名称',
-            key: 'age'
+            key: 'majorName'
           },
           {
             title: '科类',
-            key: 'address'
+            key: 'cateName'
           },
           {
             title: '计划数',
-            key: 'address'
+            key: 'planEnrollNum'
           },
           {
             title: '已录取数',
-            key: 'address'
+            key: 'enrolledNum'
           },
           {
             title: '最高分',
-            key: 'address'
+            key: 'enrolledScoreMax'
           },
           {
             title: '最低分',
-            key: 'address'
+            key: 'enrolledScoreMin'
           },
           {
             title: '调剂优先顺序',
-            key: 'address'
+            align: 'center',
+            render (row, column, index) {
+              return index + 1;
+            }
           }
         ],
         data1: [

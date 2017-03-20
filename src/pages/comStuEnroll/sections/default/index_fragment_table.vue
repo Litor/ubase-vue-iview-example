@@ -12,5 +12,9 @@
   import fragmentMixin from 'iview-biz/mixins/fragmentMixin'
   export default {
     mixins:[fragmentMixin],
+
+    created(){
+        this.$emit('on-created')
+    }
   }
 </script>

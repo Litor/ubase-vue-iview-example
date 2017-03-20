@@ -2,70 +2,149 @@ export default  function (vm) {
   var options = {
     topnav: {navigates: [{title: '特殊考生录取'}]},
 
-    tableProfile:{
-      totalStu:300
+    tableProfile: {
+      totalStu: 300
     },
     modal1: {
       $title: '普通的Modal对话框标题',
-      $loading:true,
-      $header:`<i-button type="info" @click="$emit('$on-ok')">信息按钮</i-button>`,
+      $loading: true,
+      $header: `<i-button type="info" @click="$emit('$on-ok')">信息按钮</i-button>`,
     },
 
     table: {
       current: vm,
-      tableData1: mockTableData1(),
+      tableData1: [],
       tableColumns1: [
         {
-          title: '名称',
+          title: '姓名',
           key: 'name'
         },
         {
-          title: '状态',
-          key: 'status',
+          title: '考生号',
+          key: 'ticketNum',
           render (row) {
-            const color = row.status == 1 ? 'blue' : row.status == 2 ? 'green' : 'red';
-            const text = row.status == 1 ? '构建中' : row.status == 2 ? '构建完成' : '构建失败';
-            return `<tag type="dot" color="${color}">${text}</tag>`;
+            return `<a >${row.ticketNum}</a>`;
           }
         },
         {
-          title: '画像内容',
-          key: 'portrayal',
+          title: '生源地',
+          key: 'residence'
+        },
+        {
+          align: 'center',
+          title: '文化总<br/>成绩<br/>（普）',
+          key: 'residence'
+        },
+        {
+          align: 'center',
+          title: '技能<br/>总成绩<br/>（普）',
+          key: 'residence'
+        },
+        {
+          align: 'center',
+          title: '投档总<br/>成绩<br/>（普）',
+          key: 'residence'
+        },
+        {
+          title: '专业志愿',
+          key: 'wish1',
+          render: function (row, column, index) {
+            return `<Poptip trigger="hover" title="是否服从调剂：${row.isAcceptAjust ? '是' : '否'}" placement="bottom">
+        <div>${row.wish1}</div>
+         <div slot="content">
+         <ul><li v-for="item in ['${row.wish1}','${row.wish2}','${row.wish3}','${row.wish4}','${row.wish5}','${row.wish6}']" style="text-align: center;padding: 4px">{{ item}}</li></ul>
+         </div>
+         </Poptip>`
+          }
+        },
+        {
+          title: '录取专业',
+          key: 'enrollMajor'
+        },
+        {
+          title: '录取志愿',
+          key: 'residence'
+        },
+        {
+          title: '录取状态',
+          key: 'enrollStatus',
+          render: function (row, column, index) {
+            var status = ''
+            switch (row.enrollStatus) {
+              case '1':
+                status = '已录取'
+                break
+              case '2':
+                status = '已落榜'
+                break
+              default:
+                status = '待录取'
+            }
+            return status
+          }
+        },
+
+        {
+          title: '录取方式',
+          key: 'enrollType',
+          render: function (row, column, index) {
+            return row.enrollType == 1 ? '自动' : '手动'
+          }
+        },
+        {
+          title: '锁定状态',
+          key: 'enrollLock',
+          render: function (row, column, index) {
+            return row.enrollLock == 1 ? '锁定' : '未锁定'
+          }
+        },
+        {
+          title: '操作',
+          key: 'action',
+          width: 150,
+          align: 'center',
           render (row, column, index) {
-            return `<Poptip trigger="hover" title="${row.portrayal.length}个画像" placement="bottom">
-                                        <tag>${row.portrayal.length}</tag>
-                                        <div slot="content">
-                                            <ul><li v-for="item in options.tableData1[${index}].portrayal" style="text-align: center;padding: 4px">{{ item }}</li></ul>
-                                        </div>
-                                    </Poptip>`;
+            return `<i-button type="primary" size="small" @click="show(${index})">查看</i-button> <i-button type="error" size="small" @click="remove(${index})">删除</i-button>`;
           }
         },
-        {
-          title: '选定人群数',
-          key: 'people',
-          render (row, column, index) {
-            return `<Poptip trigger="hover" title="${row.people.length}个客群" placement="bottom">
-                                        <tag>${row.people.length}</tag>
-                                        <div slot="content">
-                                            <ul><li v-for="item in options.tableData1[${index}].people" style="text-align: center;padding: 4px">{{ item.n }}：{{ item.c }}人</li></ul>
-                                        </div>
-                                    </Poptip>`;
-          }
-        },
-        {
-          title: '取样时段',
-          key: 'time',
-          render (row) {
-            return `近${row.time}天`
-          }
-        },
-        {
-          title: '更新时间',
-          key: 'update',
-          render (row, column, index) {
-            return formatDate(row.update);
-          }
-        }
+        /*{
+         title: '画像内容',
+         key: 'portrayal',
+         render (row, column, index) {
+         return `<Poptip trigger="hover" title="${row.portrayal.length}个画像" placement="bottom">
+         <tag>${row.portrayal.length}</tag>
+         <div slot="content">
+         <ul><li v-for="item in options.tableData1[${index}].portrayal" style="text-align: center;padding: 4px">{{ item }}</li></ul>
+         </div>
+         </Poptip>`;
+         }
+         },
+         {
+         title: '选定人群数',
+         key: 'people',
+         render (row, column, index) {
+         return `<Poptip trigger="hover" title="${row.people.length}个客群" placement="bottom">
+         <tag>${row.people.length}</tag>
+         <div slot="content">
+         <ul><li v-for="item in options.tableData1[${index}].people" style="text-align: center;padding: 4px">{{ item.n }}：{{ item.c }}人</li></ul>
+         </div>
+         </Poptip>`;
+         }
+         },
+         {
+         title: '取样时段',
+         key: 'time',
+         render (row) {
+         return `近${row.time}天`
+         }
+         },
+         {
+         title: '更新时间',
+         key: 'update',
+         render (row, column, index) {
+         return formatDate(row.update);
+         }
+         }*/
       ]
     },
     search: {
@@ -99,8 +178,8 @@ export default  function (vm) {
   }
 
   var events = {
-    testtt:{
-      'on-tt':function () {
+    testtt: {
+      'on-tt': function () {
         console.log(vm.getSection('testtt'))
       }
     },
@@ -117,6 +196,10 @@ export default  function (vm) {
     table: {
       'on-change': () => {
         options.table.tableData1 = mockTableData1();
+      },
+
+      'on-created': function () {
+        getTableDatas()
       }
     },
 
@@ -125,6 +208,12 @@ export default  function (vm) {
         alert()
       }
     }
+  }
+
+  function getTableDatas(pageNumber, pageSize) {
+    Utils.post('/ir-mngt/comCadtEnroll/getCadtEnrollInfos').then(function (res) {
+      options.table.tableData1 = res.datas.rows
+    })
   }
 
   function mockTableData1() {

@@ -1,4 +1,5 @@
 {
   "APP_NAME": "应用名称",
-  "LANG": "cn"
+  "LANG": "cn",
+  "DEBUG":true
 }

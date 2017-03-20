@@ -12,26 +12,26 @@
     computed: {
       pages: function () {
         return {
-          class: 'readable-table',
+          class: 'manual-readable-table',
           rows: [{
             class: 'row',
             cols: [
               {span: 2, content: '姓名', class: 'item label'},
-              {span: 4, class: 'item', content: this.options.info.xm},
+              {span: 4, class: 'item', content: this.options.info.name},
               {span: 2, content: '考生号', class: 'item label'},
-              {span: 4, class: 'item', content: this.options.info.ksh},
+              {span: 4, class: 'item', content: this.options.info.ticketNum},
               {span: 2, content: '身份证号', class: 'item label'},
-              {span: 4, class: 'item', content: this.options.info.sfzh},
+              {span: 4, class: 'item', content: this.options.info.idNum},
               {span: 2, content: '报考科类', class: 'item label'},
-              {span: 4, class: 'item', content: this.options.info.bklb},
+              {span: 4, class: 'item', content: this.options.info.cateName},
             ]
           },{
             class: 'row',
             cols: [
               {span: 2, content: '投档总成绩', class: 'item label'},
-              {span: 4, class: 'item', content: this.options.info.tkzcj},
+              {span: 4, class: 'item', content: this.options.info.enrollScoreSum},
               {span: 2, content: '是否服从调剂', class: 'item label'},
-              {span: 4, class: 'item', content: this.options.info.sffctj},
+              {span: 4, class: 'item', content: this.options.info.isAcceptAjust},
               {span: 2, content: '录取专业', class: 'item label'},
               {span: 4, class: 'item', content: this.options.info.lqzy}
             ]
@@ -40,22 +40,22 @@
               class: 'row',
               cols: [
                 {span: 2, content: '第一志愿', class: 'item label'},
-                {span: 4, class: 'item', content: this.options.info.zy1},
+                {span: 4, class: 'item', content: this.options.info.wish1},
                 {span: 2, content: '第二志愿', class: 'item label'},
-                {span: 4, class: 'item', content: this.options.info.zy2},
+                {span: 4, class: 'item', content: this.options.info.wish2},
                 {span: 2, content: '第三志愿', class: 'item label'},
-                {span: 4, class: 'item', content: this.options.info.zy3},
+                {span: 4, class: 'item', content: this.options.info.wish3},
                 {span: 2, content: '第四志愿', class: 'item label'},
-                {span: 4, class: 'item', content: this.options.info.zy4},
+                {span: 4, class: 'item', content: this.options.info.wish4},
               ]
             },
             {
               class: 'row',
               cols: [
                 {span: 2, content: '第五志愿', class: 'item label'},
-                {span: 4, class: 'item', content: this.options.info.zy5},
+                {span: 4, class: 'item', content: this.options.info.wish5},
                 {span: 2, content: '第六志愿', class: 'item label'},
-                {span: 4, class: 'item', content: this.options.info.zy6},
+                {span: 4, class: 'item', content: this.options.info.wish6},
               ]
             }]
         }
@@ -89,19 +89,19 @@
     return {
       options: {
         info: {
-          xm: 'liujun',
-          ksh:'123456789123456789',
-          sfzh:'1235656200112122236',
-          bklb:'理科',
-          tkzcj:300,
-          sffctj:'是',
+          name: 'liujun',
+          ticketNum:'123456789123456789',
+          idNum:'1235656200112122236',
+          cateName:'理科',
+          enrollScoreSum:300,
+          isAcceptAjust:'是',
           lqzy:'计算机专业',
-          zy1:'会计',
-          zy2:'金融',
-          zy3:'经济',
-          zy4:'物理',
-          zy5:'化学',
-          zy6:'生物',
+          wish1:'会计',
+          wish2:'金融',
+          wish3:'经济',
+          wish4:'物理',
+          wish5:'化学',
+          wish6:'生物',
 
         }
       }
@@ -109,10 +109,10 @@
   }
 </script>
 <style lang="less" rel="stylesheet/less">
-  .readable-table {
+  .manual-readable-table {
     border-right: 1px solid rgba(216, 220, 240, 1);
     border-bottom: 1px solid rgba(216, 220, 240, 1);
-    background-color: #F7F8FC;
+    background-color: #fff;
 
     .item {
       border-left: 1px solid rgba(216, 220, 240, 1);
@@ -123,7 +123,7 @@
     }
 
     .row .item.label {
-      background-color: #F0F1F9;
+      background-color: #F5F7F9;
     }
   }
 </style>
