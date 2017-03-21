@@ -1,6 +1,10 @@
 <template>
   <div>
-    <i-container :config="pages" v-ref:ipage></i-container>
+    <div  style="padding: 16px;background-color:#ECEDF2;">
+      <Card :dis-hover="true" style="  border-radius: 8px;">
+        <i-container :config="pages" v-ref:ipage></i-container>
+      </Card>
+    </div>
   </div>
 </template>
 <script>

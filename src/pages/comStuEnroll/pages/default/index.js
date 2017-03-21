@@ -1,71 +1,105 @@
 export default  function (vm) {
   var options = {
-    topnav: {navigates: [{title: '特殊考生录取'}]},
+    topnav: {navigates: [{title: '普通考生录取'}]},
 
     tableProfile: {
-      totalStu: 300
+      totalStu: '',
+      enrolledSuccessNum:'',
+      enrolledFailNum:'',
+      unenrolledNum:''
     },
-    modal1: {
+
+    openBatch:{
+      batchName:''
+    },
+
+    tableColumnSetting: {
       $title: '普通的Modal对话框标题',
-      $loading: true,
-      $header: `<i-button type="info" @click="$emit('$on-ok')">信息按钮</i-button>`,
+      $width:600,
+      $header: `设置显示列`,
+      list:[{id: 'name', name: '姓名'},
+        {id: 'ticketNum', name: '考生号'},
+        {id: 'idNum', name: '身份证号'},
+        {id: 'sex', name: '性别'},
+        {id: 'nation', name: '民族'},
+        {id: 'politicalAff', name: '政治面貌'},
+        {id: 'healthStatus', name: '健康状况'},
+        {id: 'height', name: '身高'},
+        {id: 'weight', name: '体重'},
+        {id: 'residence', name: '生源地'},
+        {id: 'highSchool', name: '毕业中学'},
+        {id: 'cadtType', name: '考生类别'},
+        {id: 'gdteType', name: '毕业类别'},
+        {id: 'phoneNum', name: '联系手机'},
+        {id: 'contactNum', name: '联系电话'},
+        {id: 'generalScoreSum', name: '文化总成绩（普）'},
+        {id: 'skillScoreSum', name: '技能总成绩（普）'},
+        {id: 'enrollScoreSum', name: '投档总成绩（普）'},
+        {id: 'categoryCode_DISPLAY', name: '报考科类'},
+        {id: 'enrollMajor', name: '录取专业'},
+        {id: 'enrollType', name: '录取方式'},
+        {id: 'enrollStatus', name: '录取状态'},
+        {id: 'enrollTime', name: '录取时间'}
+      ],
+      selected:['name']
     },
 
     table: {
+      url: `/ir-mngt/comCadtEnroll/getCadtEnrollInfos`,
       current: vm,
-      tableData1: [],
-      tableColumns1: [
-        {
-          title: '姓名',
-          key: 'name'
-        },
-        {
+      table2ColumnList:{
+        ticketNum:{
           title: '考生号',
           key: 'ticketNum',
           render (row) {
             return `<a >${row.ticketNum}</a>`;
           }
         },
-        {
-          title: '生源地',
-          key: 'residence'
-        },
-        {
+        generalScoreSumSpecial:{
           align: 'center',
-          title: '文化总<br/>成绩<br/>（普）',
-          key: 'residence'
+          title: '文化总<br/>成绩(普)',
+          key: 'generalScoreSumSpecial'
         },
-        {
+
+        skillScoreSumSpecial:{
           align: 'center',
-          title: '技能<br/>总成绩<br/>（普）',
-          key: 'residence'
+          title: '技能总<br/>成绩(普)',
+          key: 'skillScoreSumSpecial'
         },
-        {
+
+        enrollScoreSumSpecial: {
           align: 'center',
-          title: '投档总<br/>成绩<br/>（普）',
-          key: 'residence'
+          title: '投档总<br/>成绩(普)',
+          key: 'enrollScoreSumSpecial'
         },
-        {
+
+        majorWish: {
           title: '专业志愿',
-          key: 'wish1',
+          key: 'majorWish',
           render: function (row, column, index) {
             return `<Poptip trigger="hover" title="是否服从调剂：${row.isAcceptAjust ? '是' : '否'}" placement="bottom">
         <div>${row.wish1}</div>
          <div slot="content">
-         <ul><li v-for="item in ['${row.wish1}','${row.wish2}','${row.wish3}','${row.wish4}','${row.wish5}','${row.wish6}']" style="text-align: center;padding: 4px">{{ item}}</li></ul>
+         <ul>
+         <li>第一志愿:${row.wish1}</li>
+         <li>第二志愿:${row.wish2}</li>
+         <li>第三志愿:${row.wish3}</li>
+         <li>第四志愿:${row.wish4}</li>
+         <li>第五志愿:${row.wish5}</li>
+         <li>第六志愿:${row.wish6}</li>
+         </ul>
          </div>
          </Poptip>`
           }
         },
-        {
-          title: '录取专业',
-          key: 'enrollMajor'
-        },
-        {
+        enrolledMajor: {
           title: '录取志愿',
-          key: 'residence'
+          render:function () {
+            return '4'
+          }
         },
-        {
+
+        enrollStatus:{
           title: '录取状态',
           key: 'enrollStatus',
           render: function (row, column, index) {
@@ -84,96 +118,37 @@ export default  function (vm) {
           }
         },
 
-        {
+        enrollType: {
           title: '录取方式',
           key: 'enrollType',
           render: function (row, column, index) {
             return row.enrollType == 1 ? '自动' : '手动'
           }
         },
-        {
+
+        enrollLock:  {
           title: '锁定状态',
           key: 'enrollLock',
           render: function (row, column, index) {
             return row.enrollLock == 1 ? '锁定' : '未锁定'
           }
         },
-        {
-          title: '操作',
-          key: 'action',
-          width: 150,
-          align: 'center',
-          render (row, column, index) {
-            return `<i-button type="primary" size="small" @click="show(${index})">查看</i-button> <i-button type="error" size="small" @click="remove(${index})">删除</i-button>`;
-          }
-        },
-        /*{
-         title: '画像内容',
-         key: 'portrayal',
-         render (row, column, index) {
-         return `<Poptip trigger="hover" title="${row.portrayal.length}个画像" placement="bottom">
-         <tag>${row.portrayal.length}</tag>
-         <div slot="content">
-         <ul><li v-for="item in options.tableData1[${index}].portrayal" style="text-align: center;padding: 4px">{{ item }}</li></ul>
-         </div>
-         </Poptip>`;
-         }
-         },
-         {
-         title: '选定人群数',
-         key: 'people',
-         render (row, column, index) {
-         return `<Poptip trigger="hover" title="${row.people.length}个客群" placement="bottom">
-         <tag>${row.people.length}</tag>
-         <div slot="content">
-         <ul><li v-for="item in options.tableData1[${index}].people" style="text-align: center;padding: 4px">{{ item.n }}：{{ item.c }}人</li></ul>
-         </div>
-         </Poptip>`;
-         }
-         },
-         {
-         title: '取样时段',
-         key: 'time',
-         render (row) {
-         return `近${row.time}天`
-         }
-         },
-         {
-         title: '更新时间',
-         key: 'update',
-         render (row, column, index) {
-         return formatDate(row.update);
-         }
-         }*/
-      ]
+      },
+      tableColumns: []
     },
     search: {
-      cityList: [
-        {
-          value: 'beijing',
-          label: '北京市'
-        },
-        {
-          value: 'shanghai',
-          label: '上海市'
-        },
-        {
-          value: 'shenzhen',
-          label: '深圳市'
-        },
-        {
-          value: 'hangzhou',
-          label: '杭州市'
-        },
-        {
-          value: 'nanjing',
-          label: '南京市'
-        },
-        {
-          value: 'chongqing',
-          label: '重庆市'
-        }
-      ]
+      val: {},
+
+      api: {
+        typeCode: `/ir-mngt/code/getTypes`, // 单招类别
+        categoryCode: `/ir-mngt/code/getCategories`, // 报考科类
+        residenceCode: '/ir-mngt/code/getSecondLevelDistrict',  // 生源地
+        enrollMajorCode: `/ir-mngt/code/getEnrollMajors`, // 录取专业
+        cadtTypeCode: `/ir-mngt/code/getCadtTypes`, // 考生类别
+        gdteTypeCode: `/ir-mngt/code/getGdteTypes`, // 毕业类别
+        politicalAffCode: `/ir-mngt/code/getPoliticalAffs`, // 政治面貌
+        nationCode: `/ir-mngt/code/getNations` // 民族
+      }
     }
   }
 
@@ -183,74 +158,75 @@ export default  function (vm) {
         console.log(vm.getSection('testtt'))
       }
     },
+
+    'search': {
+      'on-search': function () {
+        console.log(options.search.val)
+      },
+      'on-reset':function () {
+        options.search.val = {}
+      }
+    },
     button: {
       'on-test': () => {
         console.log(vm.$getSection('button'))
       },
       'on-modal': () => {
-        options.tableProfile.totalStu = 1000
-        vm.$getModals().modal1 = true
+        vm.$getModals().tableColumnSetting = true
       }
     },
 
     table: {
-      'on-change': () => {
-        options.table.tableData1 = mockTableData1();
+      'on-after-ajax':function (datas) {
+        options.tableProfile.totalStu = datas.totalSize
+        options.tableProfile.enrolledSuccessNum = datas.enrolledSuccessNum
+        options.tableProfile.enrolledFailNum = datas.enrolledFailNum
+        options.tableProfile.unenrolledNum = datas.unenrolledNum
       },
 
-      'on-created': function () {
-        getTableDatas()
+      'on-created':function () {
+        resetTableColumns()
       }
     },
 
-    modal1: {
+    enrollOperation:{
+      'on-auto-enroll':function () {
+        alert('auto')
+      }
+    },
+
+    tableColumnSetting: {
       '$on-ok': () => {
-        alert()
+        resetTableColumns()
       }
     }
   }
+  
+  function resetTableColumns() {
+    var data = []
+    options.tableColumnSetting.selected.forEach(col => {
+      var colItem = options.table.table2ColumnList[col]
+      if(!colItem){
+        colItem = {
+          title: _.find(options.tableColumnSetting.list, function (item) {
+            return item.id == col
+          }).name,
+          key: col
+        }
+      }
+      data.push(colItem)
+    });
 
-  function getTableDatas(pageNumber, pageSize) {
-    Utils.post('/ir-mngt/comCadtEnroll/getCadtEnrollInfos').then(function (res) {
-      options.table.tableData1 = res.datas.rows
+    data.push({
+      title: '操作',
+      key: 'action',
+      width: 150,
+      align: 'center',
+      render (row, column, index) {
+        return `<a href="javascript:void(0)" v-link="{path:'/manualEnrollPage'}">手动录取</a>`;
+      }
     })
-  }
-
-  function mockTableData1() {
-    let data = [];
-    for (let i = 0; i < 5; i++) {
-      data.push({
-        name: '商圈' + Math.floor(Math.random() * 100 + 1),
-        status: Math.floor(Math.random() * 3 + 1),
-        portrayal: ['城市渗透', '人群迁移', '消费指数', '生活指数', '娱乐指数'],
-        people: [
-          {
-            n: '客群' + Math.floor(Math.random() * 100 + 1),
-            c: Math.floor(Math.random() * 1000000 + 100000)
-          },
-          {
-            n: '客群' + Math.floor(Math.random() * 100 + 1),
-            c: Math.floor(Math.random() * 1000000 + 100000)
-          },
-          {
-            n: '客群' + Math.floor(Math.random() * 100 + 1),
-            c: Math.floor(Math.random() * 1000000 + 100000)
-          }
-        ],
-        time: Math.floor(Math.random() * 7 + 1),
-        update: new Date()
-      })
-    }
-    return data;
-  }
-
-  function formatDate(date) {
-    const y = date.getFullYear();
-    let m = date.getMonth() + 1;
-    m = m < 10 ? '0' + m : m;
-    let d = date.getDate();
-    d = d < 10 ? ('0' + d) : d;
-    return y + '-' + m + '-' + d;
+    options.table.tableColumns = data
   }
 
   return {

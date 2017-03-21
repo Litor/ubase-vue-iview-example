@@ -1,9 +1,6 @@
 export default {
-  "designer": true,
+  //"designer": true,
   "mock": true,
-  "style": {
-    "padding": "8px"
-  },
   "class": "",
   "modals": [],
   "rows": [
@@ -16,21 +13,23 @@ export default {
           "name": "navSection",
           "component": "common_fragment_nav",
           "content": "",
-          "span": 7
+          "span": 7,
+          style:{
+            "padding-bottom": "8px",
+            "margin-top": "-4px"
+          }
         }
       ]
     },
     {
+      style:{'margin-bottom':'8px', 'border-bottom':'1px solid #e3e8ee', 'padding-bottom':'6px'},
       "cols": [
         {
-          "style": {
-            "padding-bottom": "16px",
-            "padding-top": 0
-          },
           "name": "manualPc",
           "content": "单招批次：{{options.pcmc}}",
           "component": "",
-          "span": 5
+          "span": 5,
+          style:{'line-height':'32px', 'font-size':'12px'},
         }
       ]
     },

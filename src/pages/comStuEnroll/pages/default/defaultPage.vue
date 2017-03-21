@@ -1,6 +1,10 @@
 <template>
   <div>
-    <i-container :config="pages" v-ref:ipage></i-container>
+    <div  style="padding: 16px;background-color:#ECEDF2;">
+      <Card :dis-hover="true" style="  border-radius: 8px;">
+        <i-container :config="pages" v-ref:ipage></i-container>
+      </Card>
+    </div>
   </div>
 </template>
 <script>
@@ -14,8 +18,13 @@
       }
     },
 
-    ready(){
-
+    route: {
+      activate: function (transition) {
+        Utils.post('/ir-mngt/comCadtEnroll/getOpenedBatch').then((res) => {
+          this.$getSection('openBatch').options.batchName = res.datas.batchName
+          transition.next()
+        })
+      }
     }
   }
 </script>

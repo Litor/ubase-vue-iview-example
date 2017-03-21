@@ -1,9 +1,9 @@
 <template>
-  <i-select :model.sync="value" query-mode="server1" size="small" @on-query="doQuery" filterable clearable>
-    <i-option v-for="item in items" :value="item[valueMember]">{{ item[displayMember] }}</i-option>
+  <i-select :model.sync="value" query-mode="server1" @on-query="doQuery" filterable clearable v-ref:select>
+    <i-option v-for="item in items" :value="item[valueMember]" @click="select(item)">{{ item[displayMember] }}</i-option>
     <div v-if="items.length == 0 && !loading">暂无数据</div>
     <div class="loading" v-if="loading"></div>
-    <div slot="page" v-if="showPagination">
+    <div slot="page" v-if="showPagination && pageable">
       <Page :total="totalSize" :page-size="pageSize" :current="current" size="small" @on-change="changePage"
             simple></Page>
     </div>
@@ -18,7 +18,7 @@
     props: {
       url: String,
       value: {
-        type: String,
+        type: [String, Number, Boolean],
         default: '',
       },
       displayMember: {
@@ -27,14 +27,19 @@
       },
       valueMember: {
         type: String,
-        default: 'id'
+        default: 'code'
       },
       pageSize: {
         type: Number,
         default: 10
       },
 
-      valueDisplay:String,
+      pageable: {
+        type: Boolean,
+        default: true
+      },
+
+      valueDisplay: String,
 
       params: Object
     },
@@ -51,15 +56,24 @@
       }
     },
 
+    watch:{
+        value:function (newVal) {
+          if(newVal == ''){
+              this.valueDisplay = ''
+              this.$refs.select.query = ''
+          }
+        },
+    },
+
     ready(){
-        if(this.valueDisplay){
-            var selected = {}
-            selected[this.displayMember] = this.valueDisplay
-            selected[this.valueMember] = this.value
-            this.items = [selected]
-        }else{
-          this.__fetchData()
-        }
+      if (this.valueDisplay) {
+        var selected = {}
+        selected[this.displayMember] = this.valueDisplay
+        selected[this.valueMember] = this.value
+        this.items = [selected]
+      } else {
+        this.__fetchData()
+      }
     },
 
     data: function () {
@@ -80,7 +94,7 @@
             "searchContent": this.searchContent,
             "pageSize": this.pageSize,
             "pageNumber": this.current
-          },this.params)),
+          }, this.params)),
           headers: {
             "Content-Type": "application/json"
           },
@@ -102,6 +116,10 @@
       changePage(pageNumber){
         this.current = pageNumber
         this.__fetchData()
+      },
+
+      select(item){
+          this.valueDisplay = item[this.displayMember]
       }
     }
   }
